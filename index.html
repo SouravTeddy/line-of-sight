@@ -241,7 +241,7 @@
         <button class="btn secondary" id="manualToggleBtn" style="padding:6px 12px; font-size:0.72rem;">Manual</button>
       </div>
     </div>
-    <div id="distanceScale" class="mono">line runs to the antipode, ~20,000 km</div>
+    <div id="distanceScale" class="mono">line wraps the full globe, ~40,000 km</div>
     <div id="reticle">
       <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.4" style="color:var(--accent)">
         <circle cx="32" cy="32" r="26"/>
@@ -377,7 +377,7 @@
     var myGen = ++scanGeneration;
     var seen = {};
     var found = [];
-    var distances = sampleDistances(20000);
+    var distances = sampleDistances(2*Math.PI*R); // full circumference back to origin
     if (statusEl) statusEl.textContent = 'Scanning bearing ' + Math.round(bearing) + '°…';
     renderCards(containerEl, [], 'Scanning…');
 
@@ -400,9 +400,9 @@
     if (statusEl){
       statusEl.textContent = found.length
         ? found.length + ' places found along this line'
-        : 'Nothing notable on this line for ~20,000 km — mostly ocean, probably.';
+        : 'Nothing notable on this line all the way around the globe — mostly ocean, probably.';
     }
-    if (!found.length) renderCards(containerEl, [], 'Nothing notable on this line for ~20,000 km — mostly ocean, probably.');
+    if (!found.length) renderCards(containerEl, [], 'Nothing notable on this line all the way around the globe — mostly ocean, probably.');
   }
 
   // ---------------- live camera + sensor mode ----------------
